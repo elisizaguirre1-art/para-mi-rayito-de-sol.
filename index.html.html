@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi rayito de sol</title>
+    <style>
+        :root {
+            --te-amo: #160105;
+            --rosa-sobre: #ffb3c1;
+            --rosa-oscuro: #ff758f;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0b0f19;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            perspective: 1000px; /* Mejora el efecto 3D al abrirse */
+        }
+
+        /* Corazón de la esquina superior */
+        .carta_Love {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            color: var(--te-amo);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10;
+        }
+
+        /* Contenedor del sobre */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: var(--rosa-sobre);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Solapa superior del sobre */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid var(--rosa-oscuro);
+            transform-origin: top;
+            transition: transform 0.4s ease-in-out;
+            z-index: 4;
+        }
+
+        /* Lados del sobre */
+        .envelope::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-left: 150px solid var(--rosa-sobre);
+            border-right: 150px solid var(--rosa-sobre);
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid var(--rosa-sobre);
+            z-index: 3;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        /* La hoja de la carta dentro del sobre */
+        .letter {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 270px;
+            height: 180px;
+            background-color: #fff5f6;
+            border-radius: 8px;
+            padding: 15px;
+            box-sizing: border-box;
+            transition: transform 0.5s ease-in-out, height 0.5s ease-in-out;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .letter h2 {
+            font-size: 14px;
+            color: var(--te-amo);
+            margin: 0 0 5px 0;
+            text-align: center;
+        }
+
+        .letter p {
+            font-size: 11px;
+            color: #444;
+            margin: 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .counter-title {
+            font-size: 11px;
+            color: var(--te-amo);
+            text-align: center;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        #contador {
+            font-size: 10px;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+            background: #ffe5ec;
+            padding: 4px;
+            border-radius: 5px;
+        }
+
+        .letter-footer {
+            font-size: 9px;
+            color: var(--te-amo);
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        /* ANIMACIONES CUANDO SE ABRE (.open) */
+        
+        /* 1. La solapa se levanta hacia arriba */
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* 2. La carta sale del sobre y sube */
+        .envelope-wrapper.open .letter {
+            transform: translateY(-130px);
+            z-index: 5;
+            height: 220px; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="carta_Love">❤️</div>
+
+    <div class="envelope-wrapper" id="sobre">
+        <div class="envelope">
+            <div class="letter">
+                <div>
+                    <h2>Para mi niño de ojos bonitos:</h2>
+                    <p> les escribo esta carta para pedirle que me: Perdóne por las veces que lo he hecho sentir mal,mil veces perdón,se que no soy la mejor persona de este mundo pero,Sabe que Ustt es lo mejor que me ha pasado y que lo amo infinitamente mí, Niño lindo. 🫂❤️✨</p>
+                </div>
+
+                <div>
+                    <div class="counter-title"> ustt es el rayito de sol que ilumina mis dias sin importar que tan malo sea mi dia,el hecho de tenerlo con migo es una gran bedición,y perderlo no es mi intención. </div>
+                
+                </div>
+
+                <div class="letter-footer">
+                    <span>Para:Jose Maldonado ❤️ </span>
+                    <span>De: Elis Izaguirre </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Forzamos la detección del clic directamente en la pantalla
+        const elSobre = document.getElementById('sobre');
+        
+        elSobre.onclick = function() {
+            elSobre.classList.toggle('open');
+        };
+
+        // Pon aquí la fecha de aniversario (Año, Mes-1, Día)
+        // Nota: Enero es 0, Febrero es 1, Marzo es 2... Mayo es 4.
+        const fechaInicio = new Date(2024, 11, 15, 0, 0, 0); 
+
+        function actualizarContador() {
+            const ahora = new Date();
+            const diferencia = ahora - fechaInicio;
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            
+        }
+
+        setInterval(actualizarContador, 1000);
+        actualizarContador();
+    </script>
+</body>
+</html>
